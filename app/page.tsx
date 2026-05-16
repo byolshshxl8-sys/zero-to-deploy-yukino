@@ -2,12 +2,13 @@
 
 import { useMemo, useState } from "react";
 
+import Image from "next/image";
+
 import { Button } from "@/components/ui/button";
 
 import {
   Card,
   CardContent,
-  CardHeader,
   CardTitle,
 } from "@/components/ui/card";
 
@@ -20,6 +21,7 @@ const menuItems = [
     english: "Curry Rice",
     description: "人気No.1のスパイシーカレー",
     price: 1200,
+    image: "/curry.png",
   },
   {
     id: 2,
@@ -28,6 +30,7 @@ const menuItems = [
     english: "Hamburger",
     description: "ジューシーなビーフバーガー",
     price: 1100,
+    image: "/hamburger.png",
   },
   {
     id: 3,
@@ -36,6 +39,7 @@ const menuItems = [
     english: "Pasta",
     description: "トマトソースたっぷりのパスタ",
     price: 1300,
+    image: "/pasta.png",
   },
 
   // Dessert
@@ -46,6 +50,7 @@ const menuItems = [
     english: "Shortcake",
     description: "ふわふわスポンジの人気デザート",
     price: 700,
+    image: "/shortcake.png",
   },
   {
     id: 5,
@@ -54,6 +59,7 @@ const menuItems = [
     english: "Waffle",
     description: "焼きたてサクサクワッフル",
     price: 800,
+    image: "/waffle.png",
   },
   {
     id: 6,
@@ -62,6 +68,7 @@ const menuItems = [
     english: "Ice Cream",
     description: "冷たくて甘い定番デザート",
     price: 500,
+    image: "/icecream.png",
   },
 
   // Drink
@@ -72,6 +79,7 @@ const menuItems = [
     english: "Coffee",
     description: "香り高いホットコーヒー",
     price: 500,
+    image: "/coffee.png",
   },
   {
     id: 8,
@@ -80,6 +88,7 @@ const menuItems = [
     english: "Bubble Tea",
     description: "もちもち食感の人気ドリンク",
     price: 650,
+    image: "/bubbletea.png",
   },
   {
     id: 9,
@@ -88,6 +97,7 @@ const menuItems = [
     english: "Cola",
     description: "爽やかな炭酸ドリンク",
     price: 400,
+    image: "/cola.png",
   },
 ];
 
@@ -226,55 +236,75 @@ export default function Home() {
             key={item.id}
             className="rounded-3xl shadow-lg"
           >
-            <CardHeader>
-              <CardTitle>
-                {item.name} / {item.english}
-              </CardTitle>
-            </CardHeader>
+            <CardContent className="p-4">
 
-            <CardContent className="space-y-4">
+              <div className="flex gap-4">
 
-              <p className="text-sm text-gray-600">
-                {item.description}
-              </p>
+                {/* Image */}
+                <Image
+                  src={item.image}
+                  alt={item.english}
+                  width={110}
+                  height={110}
+                  className="rounded-2xl object-cover"
+                />
 
-              <p className="font-bold text-xl">
-                ¥{item.price}
-              </p>
+                {/* Right Area */}
+                <div className="flex-1 space-y-2">
 
-              {/* Counter */}
-              <div className="flex items-center justify-between">
+                  <CardTitle className="text-lg">
+                    {item.name}
+                  </CardTitle>
 
-                <div className="flex items-center gap-3">
+                  <p className="text-sm text-gray-500">
+                    {item.english}
+                  </p>
 
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    onClick={() =>
-                      decreaseCount(item.id)
-                    }
-                  >
-                    −
-                  </Button>
+                  <p className="text-sm text-gray-600">
+                    {item.description}
+                  </p>
 
-                  <span className="w-6 text-center text-lg font-bold">
-                    {counts[item.id]}
-                  </span>
+                  <p className="font-bold text-lg">
+                    ¥{item.price}
+                  </p>
 
-                  <Button
-                    size="sm"
-                    onClick={() =>
-                      increaseCount(item.id)
-                    }
-                  >
-                    ＋
-                  </Button>
+                  {/* Counter */}
+                  <div className="flex items-center justify-between pt-2">
+
+                    <div className="flex items-center gap-2">
+
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={() =>
+                          decreaseCount(item.id)
+                        }
+                      >
+                        −
+                      </Button>
+
+                      <span className="w-6 text-center font-bold">
+                        {counts[item.id]}
+                      </span>
+
+                      <Button
+                        size="sm"
+                        onClick={() =>
+                          increaseCount(item.id)
+                        }
+                      >
+                        ＋
+                      </Button>
+
+                    </div>
+
+                    <Button size="sm">
+                      注文追加
+                    </Button>
+
+                  </div>
 
                 </div>
-
-                <Button>
-                  注文追加
-                </Button>
 
               </div>
 
